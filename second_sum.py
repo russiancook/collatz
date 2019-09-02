@@ -1,12 +1,16 @@
+LIMIT = 10000000
+
+# Using dictionary to keep a cache of the already solved numbers
 cache = {1: 1}
-def collatz_count(n):
-    if n not in cache:
-        if n % 2 == 0:
-            cache[n] = 1 + collatz_count(n / 2)
+def collatz_count(num):
+    if num not in cache:
+        if num % 2 == 0:
+            cache[num] = 1 + collatz_count(num / 2)
         else:
-            cache[n] = 1 + collatz_count(3 * n + 1)
-    return cache[n]
-	
+            cache[num] = 1 + collatz_count(3 * num + 1)
+    return cache[num]
+
+# keeping the top two results returns the number of second	
 def get_longest(num):
 	top_two = [[1,1], [1,1]]
 	for x in range(2,num):
@@ -20,7 +24,8 @@ def get_longest(num):
 			top_two[1][0] = x
 			top_two[1][1] = result
 	return top_two[1][0]
-		
+
+# sum up the sequence of the given number	
 def get_sum(num):
 	sum = 0
 	while num != 1:
@@ -31,5 +36,5 @@ def get_sum(num):
 			num = num * 3 + 1
 	return sum + 1
 	
-second = get_longest(10000000)
+second = get_longest(LIMIT)
 print(get_sum(second))
